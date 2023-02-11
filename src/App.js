@@ -1,9 +1,13 @@
 import Header from './Header';
+import Handbags from './Handbags';
+import Footer from './Footer';
 
 function App() {
   return (
     <div className="App">
-     <Header/>
+      <Header/>
+      <Handbags/>
+      <Footer/>
     </div>
   );
 }
