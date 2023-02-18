@@ -1,5 +1,8 @@
+import { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
+
 const Handbags = () => {
-  const allItems = [
+  const [handbags, setHandbags] = useState([
     {
       id: 1,
       handbagName: "Designer Bag",
@@ -24,17 +27,25 @@ const Handbags = () => {
       handbagPhoto: "https://media.dior.com/couture/ecommerce/media/catalog/product/J/r/1644525914_M1296ZRGO_M928_E01_ZH.jpg",
       price: 60
     }
-  ];
+  ]);
   
   return (
-    <main style={{ display: "flex", flexWrap: "wrap" }}>
-      {allItems.map((item) => (
-        <div key={item.id} style={{ width: "33.33%", padding: "10px" }}>
-          <div style={{ textAlign: "center" }} className="w-50 h-50">
-            <img src={item.handbagPhoto} alt="handbag" />
+    <main className="m-4 mb-5" style={{ display: "flex", flexWrap: "wrap" }}>
+      {handbags.map((handbag) => (
+        <div key={handbag.id} style={{ width: "33.33%", padding: "10px" }}>
+          <div>
+            <img src={handbag.handbagPhoto} alt="Design handbag" />
           </div>
-          <div style={{ textAlign: "center" }}> <h4 className="price text-lg">${item.price}</h4></div>
-          <div style={{ textAlign: "center" }}> <p>{item.handbagName}</p> </div>
+          <div> <h4 className="price text-lg">${handbag.price}</h4></div>
+          <div className="flex handbagName" style={{ display: "flex", justifyContent: "space-between" }}>
+            <h6>{handbag.handbagName}</h6>
+            <div>
+              <FaTrashAlt 
+                role="button"
+                className="trash-icon" 
+              />
+            </div>
+          </div>
         </div>
       ))}
     </main>

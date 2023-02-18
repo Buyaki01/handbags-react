@@ -1,5 +1,6 @@
-.price{
+.price, .handbagName{
   color: #d40d9a;
+  text-align: center;
 }
 
 .footer {
