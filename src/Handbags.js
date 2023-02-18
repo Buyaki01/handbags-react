@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import AddHandbag from './AddHandbag';
 
 const Handbags = () => {
   const [handbags, setHandbags] = useState([
@@ -33,27 +34,38 @@ const Handbags = () => {
     const newHandbags = handbags.filter((handbag) => (handbag.id !== id));
     setHandbags(newHandbags);
   }
+
+  const addHandbag = () => {
+    
+  }
   
   return (
     <main className="m-4" style={{ display: "flex", flexWrap: "wrap" }}>
-      {handbags.map((handbag) => (
-        <div key={handbag.id} style={{ width: "33.33%", padding: "10px" }}>
-          <div>
-            <img src={handbag.handbagPhoto} alt="Design handbag" />
-          </div>
-          <div> <h4 className="price text-lg">${handbag.price}</h4></div>
-          <div className="flex handbagName" style={{ display: "flex", justifyContent: "space-between" }}>
-            <h6>{handbag.handbagName}</h6>
+      <div>
+        {handbags.map((handbag) => (
+          <div key={handbag.id} style={{ width: "33.33%", padding: "10px" }}>
             <div>
-              <FaTrashAlt 
-                role="button"
-                className="trash-icon" 
-                onClick={() => handbagDelete(handbag.id)}
-              />
+              <img src={handbag.handbagPhoto} alt="Design handbag" />
+            </div>
+            <div> <h4 className="price text-lg">${handbag.price}</h4></div>
+            <div className="flex handbagName" style={{ display: "flex", justifyContent: "space-between" }}>
+              <h6>{handbag.handbagName}</h6>
+              <div>
+                <FaTrashAlt 
+                  role="button"
+                  className="trash-icon" 
+                  onClick={() => handbagDelete(handbag.id)}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      <div>
+        <AddHandbag
+          handbags={handbags}
+        />
+      </div>
     </main>
   );
 }
