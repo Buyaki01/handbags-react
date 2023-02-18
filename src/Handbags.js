@@ -28,9 +28,14 @@ const Handbags = () => {
       price: 60
     }
   ]);
+
+  const handbagDelete = (id) => {
+    const newHandbags = handbags.filter((handbag) => (handbag.id !== id));
+    setHandbags(newHandbags);
+  }
   
   return (
-    <main className="m-4 mb-5" style={{ display: "flex", flexWrap: "wrap" }}>
+    <main className="m-4" style={{ display: "flex", flexWrap: "wrap" }}>
       {handbags.map((handbag) => (
         <div key={handbag.id} style={{ width: "33.33%", padding: "10px" }}>
           <div>
@@ -43,6 +48,7 @@ const Handbags = () => {
               <FaTrashAlt 
                 role="button"
                 className="trash-icon" 
+                onClick={() => handbagDelete(handbag.id)}
               />
             </div>
           </div>
