@@ -3,47 +3,40 @@ import { FaTrashAlt } from "react-icons/fa";
 import AddHandbag from './AddHandbag';
 
 const Handbags = () => {
-  const [handbags, setHandbags] = useState([
-    {
-      id: 1,
-      handbagName: "Designer Bag",
-      handbagPhoto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqtAEw0fV4HctesXh41R5Cam6x-QQjYjWncKImYZuBA&s",
-      price: 50
-    },
-    {
-      id: 2,
-      handbagName: "Designer Bag",
-      handbagPhoto: "https://media.dior.com/couture/ecommerce/media/catalog/product/J/r/1644525914_M1296ZRGO_M928_E01_ZH.jpg",
-      price: 30
-    },
-    {
-      id: 3,
-      handbagName: "Designer Bag",
-      handbagPhoto: "https://e7.pngegg.com/pngimages/961/867/png-clipart-handbag-christian-dior-se-lady-dior-fashion-bag-luggage-bags-leather.png",
-      price: 20
-    },
-    {
-      id: 4,
-      handbagName: "Designer Bag",
-      handbagPhoto: "https://media.dior.com/couture/ecommerce/media/catalog/product/J/r/1644525914_M1296ZRGO_M928_E01_ZH.jpg",
-      price: 60
-    }
-  ]);
+  const [handbags, setHandbags] = useState(JSON.parse(localStorage.getItem('handbagslist')))
+
+  const [handbagName, setHandbagName] = useState("")
+  const [handbagPhoto, setHandbagPhoto] = useState("")
+  const [price, setPrice] = useState("")
 
   const handbagDelete = (id) => {
-    const newHandbags = handbags.filter((handbag) => (handbag.id !== id));
-    setHandbags(newHandbags);
+    const handbagsList = handbags.filter((handbag) => (handbag.id !== id));
+    setHandbags(handbagsList);
+    localStorage.setItem('handbagslist', JSON.stringify(handbagsList));
   }
 
-  const addHandbag = () => {
-    
+  const newHandbag = (handbagName, handbagPhoto, price) => {
+    const id = handbags.length ? handbags[handbags.length - 1].id + 1 : 1;
+    const myNewHandbag = {id, handbagName, handbagPhoto, price}
+    const handbagsList = [...handbags, myNewHandbag]
+    setHandbags(handbagsList);
+    localStorage.setItem('handbagslist', JSON.stringify(handbagsList));
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!handbagName || !handbagPhoto || !price) return;
+    newHandbag(handbagName, handbagPhoto, price)
+    setHandbagName('');
+    setHandbagPhoto('');
+    setPrice('');
   }
   
   return (
     <main className="m-4" style={{ display: "flex", flexWrap: "wrap" }}>
       <div>
         {handbags.map((handbag) => (
-          <div key={handbag.id} style={{ width: "33.33%", padding: "10px" }}>
+          <div key={handbag.id} style={{ padding: "10px" }}>
             <div>
               <img src={handbag.handbagPhoto} alt="Design handbag" />
             </div>
@@ -63,7 +56,13 @@ const Handbags = () => {
       </div>
       <div>
         <AddHandbag
-          handbags={handbags}
+          handbagPhoto={handbagPhoto}
+          handbagName={handbagName}
+          price={price}
+          handleSubmit={handleSubmit}
+          setHandbagName={setHandbagName}
+          setHandbagPhoto={setHandbagPhoto}
+          setPrice={setPrice}
         />
       </div>
     </main>
