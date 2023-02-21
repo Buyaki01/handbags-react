@@ -1,7 +1,7 @@
 const AddHandbag = ({setHandbagName, setHandbagPhoto, handbagPhoto, handbagName, price, setPrice, handleSubmit}) => {
   return(
-    <form className="m-3" onSubmit={handleSubmit}>
-      <h3 className="text-2xl text-center">Add Handbag</h3>
+    <form className="m-5 text-center" onSubmit={handleSubmit}>
+      <h3 className="text-2xl text-center mt-5">Add Handbag</h3>
       <div className="mt-2">
         <input 
           type="file"
