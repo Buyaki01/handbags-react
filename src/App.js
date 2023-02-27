@@ -3,6 +3,7 @@ import Header from './Header';
 import Handbags from './Handbags';
 import AddHandbag from './AddHandbag';
 import Footer from './Footer';
+import apiRequest from "./apiRequest";
 
 function App() {
   const API_URL = 'http://localhost:3500/handbags';
@@ -40,11 +41,22 @@ function App() {
     setHandbags(handbagsList);
   }
 
-  const newHandbag = (handbagName, handbagPhoto, price) => {
+  const newHandbag = async (handbagName, handbagPhoto, price) => {
     const id = handbags.length ? handbags[handbags.length - 1].id + 1 : 1;
     const myNewHandbag = {id, handbagName, handbagPhoto, price}
     const handbagsList = [...handbags, myNewHandbag]
     setHandbags(handbagsList);
+
+    const postOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(myNewHandbag)
+    }
+
+    const result = await apiRequest(API_URL, postOptions)
+    if (result) setFetchError(result);
   }
 
   const handleSubmit = (e) => {
