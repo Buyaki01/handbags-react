@@ -1,0 +1,10 @@
+{
+  "handbags": [
+    {
+      "id": 1,
+      "handbagName": "Tote Bag",
+      "handbagPhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOgwKCDpGiZUlqZ_W1gAxTKjMA3p4pjOv2NtJsknUf5Q&s",
+      "price": 67
+    }
+  ]
+}
