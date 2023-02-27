@@ -36,9 +36,14 @@ function App() {
 
   }, [])
 
-  const handbagDelete = (id) => {
+  const handbagDelete = async (id) => {
     const handbagsList = handbags.filter((handbag) => (handbag.id !== id));
     setHandbags(handbagsList);
+
+    const deleteOptions = { method: 'DELETE'};
+    const reqUrl = `${API_URL}/${id}`;
+    const result = await apiRequest(reqUrl, deleteOptions);
+    if (result) setFetchError(result);
   }
 
   const newHandbag = async (handbagName, handbagPhoto, price) => {
