@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from './Header';
 import Handbags from './Handbags';
 import AddHandbag from './AddHandbag';
 import Footer from './Footer';
 
 function App() {
-  const [handbags, setHandbags] = useState(JSON.parse(localStorage.getItem('handbagslist')))
+  const [handbags, setHandbags] = useState(JSON.parse(localStorage.getItem('handbagslist'))|| [])
 
   const [handbagName, setHandbagName] = useState("")
   const [handbagPhoto, setHandbagPhoto] = useState("")
   const [price, setPrice] = useState("")
 
+  useEffect(() => {
+    localStorage.setItem('handbagslist', JSON.stringify(handbags));
+  }, [handbags])
+
   const handbagDelete = (id) => {
     const handbagsList = handbags.filter((handbag) => (handbag.id !== id));
     setHandbags(handbagsList);
-    localStorage.setItem('handbagslist', JSON.stringify(handbagsList));
   }
 
   const newHandbag = (handbagName, handbagPhoto, price) => {
@@ -22,7 +25,6 @@ function App() {
     const myNewHandbag = {id, handbagName, handbagPhoto, price}
     const handbagsList = [...handbags, myNewHandbag]
     setHandbags(handbagsList);
-    localStorage.setItem('handbagslist', JSON.stringify(handbagsList));
   }
 
   const handleSubmit = (e) => {
