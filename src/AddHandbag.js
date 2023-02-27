@@ -4,7 +4,7 @@ const AddHandbag = ({setHandbagName, setHandbagPhoto, handbagPhoto, handbagName,
       <h3 className="text-2xl text-center mt-5">Add Handbag</h3>
       <div className="mt-2">
         <input 
-          type="file"
+          type="text"
           placeholder="Handbag Photo" 
           className="border border-slate-400 p-2"
           id="handbagPhoto"

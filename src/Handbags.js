@@ -2,7 +2,8 @@ import { FaTrashAlt } from "react-icons/fa";
 
 const Handbags = ({handbags, handbagDelete}) => {
   return (
-    <main className="m-4 text-center" style={{ display: "flex", flexWrap: "wrap" }}>
+    <>
+      <section className="m-4 text-center" style={{ display: "flex", flexWrap: "wrap" }}>
       {handbags.length ? (
         <div>
           {handbags.map((handbag) => (
@@ -27,7 +28,8 @@ const Handbags = ({handbags, handbagDelete}) => {
       ) : (
         <p className="text-center text-2xl" style={{ marginTop: '2rem' }}>Your list is empty.</p>
       )} 
-    </main>
+    </section>
+    </>
   );
 }
 export default Handbags;

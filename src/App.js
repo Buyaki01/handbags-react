@@ -5,15 +5,35 @@ import AddHandbag from './AddHandbag';
 import Footer from './Footer';
 
 function App() {
-  const [handbags, setHandbags] = useState(JSON.parse(localStorage.getItem('handbagslist'))|| [])
+  const API_URL = 'http://localhost:3500/handbags';
+  const [handbags, setHandbags] = useState([])
 
   const [handbagName, setHandbagName] = useState("")
   const [handbagPhoto, setHandbagPhoto] = useState("")
   const [price, setPrice] = useState("")
+  const [fetchError, setFetchError] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    localStorage.setItem('handbagslist', JSON.stringify(handbags));
-  }, [handbags])
+    const fetchHandbags = async () => {
+      try{
+        const response = await fetch(API_URL);
+        if (!response.ok) throw Error('Did not receive expected data');
+        const handbagsList = await response.json();
+        setHandbags(handbagsList);
+        setFetchError(null);
+      }catch(err){
+        setFetchError(err.message);
+      }finally{
+        setIsLoading(false);
+      }
+    }
+    
+    setTimeout(() => {
+      fetchHandbags();
+    }, 2000)
+
+  }, [])
 
   const handbagDelete = (id) => {
     const handbagsList = handbags.filter((handbag) => (handbag.id !== id));
@@ -38,10 +58,11 @@ function App() {
   return (
     <div className="App">
       <Header/>
-      <Handbags
-        handbags={handbags}
-        handbagDelete={handbagDelete}
-      />
+      <main>
+        {isLoading && <p className="text-center">Loading Handbags...</p>}
+        {fetchError && <p className="text-red-600 text-center">{`Error: ${fetchError}`}</p>}
+        {!fetchError && !isLoading && <Handbags handbags={handbags} handbagDelete={handbagDelete}/>}
+      </main>
       <AddHandbag
         handbagPhoto={handbagPhoto}
         handbagName={handbagName}
